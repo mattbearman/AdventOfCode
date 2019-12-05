@@ -43,7 +43,7 @@ At one point I also had a class factory and dependency injection involved, so I 
 
 This one took me a _long_ time (3 - 4 hours ish), partly because (at least in my opinion) it's just difficult. But also because at first I didn't notice the instruction saying that it doesn't count as an intersection when a wire crosses itself.
 
-I'm glad I build the functionality to display the grid, as that was really useful in debugging.
+I'm glad I built the functionality to display the grid, as that was really useful in debugging.
 
 ### Part 2
 
@@ -56,3 +56,6 @@ Thanks in part to the time I invested in part 1, this only took me about 20 minu
 ### Part 1 and 2
 
 For me, day for seemed like a big drop in difficultly over day 3, I was able to get both parts done with a few lines of Ruby in about 10 minutes. Not much else to say about this one.
+
+There's definitely some redundant code in part 2, as I just copy/pasted part one, and added a new rule, instead of modifying the part one rules.
+
