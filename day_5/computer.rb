@@ -40,6 +40,8 @@ class Computer
     return if op.nil? || op == :exit
 
     send(op)
+
+    true
   end
 
   def split_code_and_modes
@@ -68,11 +70,11 @@ class Computer
   end
 
   def write_to
-    memory[read_memory!] = input
+    put_result!(input)
   end
 
   def read_from
-    self.output = memory[read_memory!]
+    self.output = next_param
   end
 
   def read_memory
@@ -92,13 +94,20 @@ class Computer
   end
 
   def params(length)
-    length.times.each_with_index.map do | _, index |
-      send(param_method(index))
-    end
+    length.times.map { next_param }
   end
 
-  def param_method(param_index)
-    "param_by_#{PARAM_MODES[param_mode_for(param_index)]}".to_sym
+  def next_param
+    send(param_method)
+  end
+
+  def param_method
+    "param_by_#{PARAM_MODES[next_param_mode]}".to_sym
+  end
+
+  def next_param_mode
+    # default to pointer mode if mode is not defined
+    param_modes.shift || 0
   end
 
   def param_by_pointer
@@ -109,34 +118,25 @@ class Computer
     read_memory!
   end
 
-  def param_mode_for(param_index)
-    # default to pointer mode if mode is not defined
-    param_modes[param_index] || 0
-  end
-
   def put_result!(result)
-    memory[result_pointer] = result
-    
-    advance_pointer
-  end
-
-  def result_pointer
-    memory[pointer]
+    memory[read_memory!] = result
   end
 end
+
+# Tests
 
 c = Computer.new("1,1,1,4,99,5,6,0,99")
 c.execute
 
-raise "day 2 failed" if c.memory != [30,1,1,4,2,5,6,0,99]
+raise "day 2 failed - o:#{c.output}, m:#{c.memory}" if c.memory != [30,1,1,4,2,5,6,0,99]
 
 c = Computer.new("3,0,4,0,99")
-c.input = "hi"
+c.input = 69
 c.execute
 
-raise "day 5 failed" if c.memory != ["hi", 0, 4, 0, 99]
+raise "day 5.1 failed - o:#{c.output}, m:#{c.memory}" if c.memory != [69, 0, 4, 0, 99]
 
 c = Computer.new("1002,4,3,4,33")
 c.execute
 
-raise "day 5.2 failed" if c.memory != [1002,4,3,4,99]
+raise "day 5.2 failed - o:#{c.output}, m:#{c.memory}" if c.memory != [1002,4,3,4,99]
