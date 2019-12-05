@@ -26,3 +26,33 @@ Sticking with Ruby, I attacked this one with what I call _"stream of thought"_ p
 For part 2 I tried to do write better code, creating a more universal computer class, and a separate brute force script.
 
 My first instinct on seeing this puzzle was to avoid brute force, but I couldn't think of a better method, and I'm not someone who has a lot of free time ¯\\\_(ツ)\_/¯
+
+## Day 3
+
+### Part 1
+
+I decided with day 3 to try and actually design the system from the outset, rather than my usual _stream of thought_ method. Partly as an exercise in software design, but I also wanted to try and build core functionality that would require no modifications when part 2 was revealed.
+
+With that in mind my code:
+
+ - Supports more (or less) than two wire runs (`Path`s)
+ - Uses a traversable linked-list type structure for the paths, instead of just being cells on a grid
+ - Is able to output the grid to the terminal
+
+At one point I also had a class factory and dependency injection involved, so I did dial it back a little bit. I definitely could have done better, like not having all my classes in one file, but ain't no body got time for that.
+
+This one took me a _long_ time (3 - 4 hours ish), partly because (at least in my opinion) it's just difficult. But also because at first I didn't notice the instruction saying that it doesn't count as an intersection when a wire crosses itself.
+
+I'm glad I build the functionality to display the grid, as that was really useful in debugging.
+
+### Part 2
+
+I _almost_ succeeded in not needing to modify part 1's classes. Part two required traversing the paths, so my list structure was a good choice. I did need to make a slight change as originally I was storing whether a cell was an intersection as a boolean `is_intersection`, but I actually needed to know which cell it intersected with, so I modified that to be `intersects_with` which references another cell.
+
+Thanks in part to the time I invested in part 1, this only took me about 20 minutes, so that was pretty cool.
+
+## Day 4
+
+### Part 1 and 2
+
+For me, day for seemed like a big drop in difficultly over day 3, I was able to get both parts done with a few lines of Ruby in about 10 minutes. Not much else to say about this one.
