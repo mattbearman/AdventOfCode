@@ -1,4 +1,4 @@
-load "computer.rb"
+load "computer.rb" unless Computer
 
 class JumpingComputer < Computer
   EXT_OP_MAP = {
