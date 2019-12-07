@@ -51,6 +51,10 @@ I _almost_ succeeded in not needing to modify part 1's classes. Part two require
 
 Thanks in part to the time I invested in part 1, this only took me about 20 minutes, so that was pretty cool.
 
+### Bonus
+
+I decided to add the output grid of the test scripts to the repo, although you'll probably need to set the text size very small to view it properly.
+
 ## Day 4
 
 ### Part 1 and 2
