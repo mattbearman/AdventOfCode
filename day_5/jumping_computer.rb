@@ -1,16 +1,13 @@
-load "computer.rb" unless Computer
+load "computer.rb" unless defined? Computer
 
 class JumpingComputer < Computer
-  EXT_OP_MAP = {
-    5 => :jump_if_true,
-    6 => :jump_if_false,
-    7 => :less_than,
-    8 => :equals,
-    99 => :exit
-  }
-
-  def op_method(op_code)
-    OP_MAP.merge(EXT_OP_MAP)[op_code]
+  def op_map
+    super.merge({
+      5 => :jump_if_true,
+      6 => :jump_if_false,
+      7 => :less_than,
+      8 => :equals
+    })
   end
   
   def jump_if_true

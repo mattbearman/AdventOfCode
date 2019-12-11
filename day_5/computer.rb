@@ -1,18 +1,5 @@
 class Computer
-  OP_MAP = {
-    1 => :add,
-    2 => :multiply,
-    3 => :write_to,
-    4 => :read_from,
-    99 => :exit
-  }
-
-  PARAM_MODES = {
-    0 => :pointer,
-    1 => :value
-  }
-
-  attr_accessor :memory, :pointer, :param_modes, :input, :output
+  attr_accessor :memory, :pointer, :next_param_modes, :input, :output
 
   def initialize(memory)
     @memory = memory
@@ -31,9 +18,9 @@ class Computer
   end
 
   def do_op
-    op_code, param_modes = split_code_and_modes
+    op_code, next_param_modes = split_code_and_modes
 
-    self.set_param_modes(param_modes)
+    self.set_next_param_modes(next_param_modes)
 
     op = op_method(op_code)
 
@@ -53,12 +40,22 @@ class Computer
     return op_code, modes
   end
 
-  def set_param_modes(modes)
-    self.param_modes = modes.digits
+  def set_next_param_modes(modes)
+    self.next_param_modes = modes.digits
   end
 
   def op_method(op_code)
-    OP_MAP[op_code]
+    op_map[op_code]
+  end
+
+  def op_map
+    {
+      1 => :add,
+      2 => :multiply,
+      3 => :write_to,
+      4 => :read_from,
+      99 => :exit
+    }
   end
 
   def add
@@ -102,12 +99,19 @@ class Computer
   end
 
   def param_method
-    "param_by_#{PARAM_MODES[next_param_mode]}".to_sym
+    "param_by_#{param_modes[next_param_mode]}".to_sym
+  end
+
+  def param_modes
+    {
+      0 => :pointer,
+      1 => :value
+    }
   end
 
   def next_param_mode
     # default to pointer mode if mode is not defined
-    param_modes.shift || 0
+    next_param_modes.shift || 0
   end
 
   def param_by_pointer

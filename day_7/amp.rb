@@ -1,7 +1,5 @@
-load "../day_5/computer.rb"
-load "../day_5/jumping_computer.rb"
-
-require "byebug"
+load "../day_5/computer.rb" unless Computer
+load "../day_5/jumping_computer.rb" unless JumpingComputer
 
 class Amp < JumpingComputer
   STATUS_IDLE = 0
